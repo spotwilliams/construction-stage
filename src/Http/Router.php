@@ -29,10 +29,10 @@ class Router
             if (preg_match(pattern: '#^' . $pattern . '$#i', subject: "{$uri}", matches: $matches)) {
                 // remove the first element, is the route.
                 array_shift($matches);
-                $params = ['routeParam' => $matches];
-                if ($httpVerb === 'post') {
+                $params['routeParam'] = $matches;
+                if (in_array($httpVerb, ['post', 'patch'])) {
                     $data = json_decode(file_get_contents('php://input'));
-                    $params = ['bodyParam' => $data];
+                    $params['bodyParam'] = $data;
                 }
 
                 return ['action' => $action, 'params' => $params];
