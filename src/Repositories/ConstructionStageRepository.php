@@ -6,6 +6,7 @@ namespace ConstructionStages\Repositories;
 
 use ConstructionStages\DataTransfers\ConstructionStagesCreate;
 use ConstructionStages\DataTransfers\ConstructionStagesUpdate;
+use ConstructionStages\Enums\ConstructionStageStatus;
 use ConstructionStages\Models\ConstructionStage;
 use ConstructionStages\Models\Model;
 
@@ -75,5 +76,10 @@ class ConstructionStageRepository extends RepositoryOrm
         if ($result === false && $throwNotFound) throw new ModelNotFound();
 
         return $result;
+    }
+
+    public function delete(Model $model): Model
+    {
+        return $this->updateByModel($model, ['status' => ConstructionStageStatus::DELETED->name]);
     }
 }

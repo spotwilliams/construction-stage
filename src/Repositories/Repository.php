@@ -16,5 +16,7 @@ interface Repository
 
     public function update(Model $model, ConstructionStagesUpdate $data): Model;
 
+    public function delete(Model $model):Model;
+
     public function getModelClass(): string;
 }
