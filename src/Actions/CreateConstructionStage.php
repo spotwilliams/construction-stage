@@ -17,10 +17,11 @@ class CreateConstructionStage implements ActionContract
     {
         $request->validate([]);
 
+        $model =  $this->repository->store(
+            new ConstructionStagesCreate($request)
+        );
         return new Response(
-            $this->repository->store(
-                new ConstructionStagesCreate($request)
-            )
+           $model->toArray()
         );
     }
 }

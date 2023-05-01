@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace ConstructionStages\Repositories;
 
 use ConstructionStages\DataTransfers\ConstructionStagesCreate;
+use ConstructionStages\DataTransfers\ConstructionStagesUpdate;
 use ConstructionStages\Models\ConstructionStage;
 use ConstructionStages\Models\Model;
 
 class ConstructionStageRepository extends RepositoryOrm
 {
-
     public function getAll(): array
     {
         return $this->querySelect("
@@ -28,9 +28,9 @@ class ConstructionStageRepository extends RepositoryOrm
 		");
     }
 
-    public function update(Model $model): array
+    public function update(Model $model, ConstructionStagesUpdate $data): Model
     {
-        // TODO: Implement update() method.
+        return $this->updateByModel($model, $data->toArray());
     }
 
     public function getModelClass(): string
@@ -38,34 +38,9 @@ class ConstructionStageRepository extends RepositoryOrm
         return ConstructionStage::class;
     }
 
-    public function store(ConstructionStagesCreate $data): array
+    public function store(ConstructionStagesCreate $data): Model
     {
-        return $this->queryInsert(
-            query: "
-			INSERT INTO construction_stages
-			    (name, start_date, end_date, duration, durationUnit, color, externalId, status)
-			    VALUES (:name, :start_date, :end_date, :duration, :durationUnit, :color, :externalId, :status)
-			",
-            bindings: [
-                'name' => $data->name,
-                'start_date' => $data->startDate,
-                'end_date' => $data->endDate,
-                'duration' => $data->duration,
-                'durationUnit' => $data->durationUnit,
-                'color' => $data->color,
-                'externalId' => $data->externalId,
-                'status' => $data->status,
-            ]);
-    }
-
-    public function patch($id, ConstructionStagesUpdate $data)
-    {
-        $stmt = $this->db->prepare("
-			UPDATE construction_stages SET
-			    (name, start_date, end_date, duration, durationUnit, color, externalId, status)
-			    VALUES (:name, :start_date, :end_date, :duration, :durationUnit, :color, :externalId, :status)
-			");
-        $stmt->execute([
+        $model = new ConstructionStage([
             'name' => $data->name,
             'start_date' => $data->startDate,
             'end_date' => $data->endDate,
@@ -75,12 +50,14 @@ class ConstructionStageRepository extends RepositoryOrm
             'externalId' => $data->externalId,
             'status' => $data->status,
         ]);
-        return $this->getSingle($this->db->lastInsertId());
+
+        return $this->saveModel($model);
     }
 
-    public function getSingle(int $id): array
+    public function getSingle(int $id, bool $throwNotFound = false): ?Model
     {
-        return $this->querySelect("
+        $result = current(
+            $this->querySelect("
 			SELECT
 				ID as id,
 				name, 
@@ -93,6 +70,10 @@ class ConstructionStageRepository extends RepositoryOrm
 				status
 			FROM construction_stages
 			WHERE ID = :id
-		", ['id' => $id]);
+		", ['id' => $id])
+        );
+        if ($result === false && $throwNotFound) throw new ModelNotFound();
+
+        return $result;
     }
 }
