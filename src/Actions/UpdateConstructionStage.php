@@ -14,16 +14,15 @@ use ConstructionStages\Validation\ValidationFailed;
 
 class UpdateConstructionStage implements ActionContract
 {
-    use RequiresRepositoryAndValidation;
+    use RequiresRepository;
     use RequireReturnsResponses;
 
     public function execute(Request $request): Response
     {
         try {
-            $this->validator->validate(
-                values: (array)$request->allInputs(),
-                rules: ['status' => ['in' => ConstructionStageStatus::toArray()]],
-            );
+            $request->validate([
+                'status' => ['in' => ConstructionStageStatus::toArray()]
+            ]);
 
             $model = $this->repository->getSingle(
                 id: (int)$request->getRouteParam(0),

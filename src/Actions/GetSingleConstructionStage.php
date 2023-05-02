@@ -10,7 +10,7 @@ use ConstructionStages\Http\Response;
 
 class GetSingleConstructionStage implements ActionContract
 {
-    use RequiresRepositoryAndValidation;
+    use RequiresRepository;
 
     public function execute(Request $request): Response
     {

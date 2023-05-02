@@ -8,7 +8,7 @@ use ConstructionStages\Validation\Rules;
 
 class Validator
 {
-    private $rules = [
+    private array $rules = [
         'datetime_iso' => Rules\DateTimeIso::class,
         'later_than_datetime_iso' => Rules\DateTimeIsoLaterThan::class,
         'hex_color' => Rules\HexColor::class,

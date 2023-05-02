@@ -14,7 +14,7 @@ use ConstructionStages\Validation\ValidationFailed;
 
 class CreateConstructionStage implements ActionContract
 {
-    use RequiresRepositoryAndValidation;
+    use RequiresRepository;
     use RequireReturnsResponses;
 
     public function execute(Request $request): Response
@@ -31,10 +31,8 @@ class CreateConstructionStage implements ActionContract
 
 
         try {
-            $this->validator->validate(
-                values: (array)$request->allInputs(),
-                rules: $rules,
-            );
+            $request->validate($rules);
+
             $model = $this->repository->store(
                 new ConstructionStagesCreate($request)
             );
