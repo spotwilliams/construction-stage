@@ -20,10 +20,6 @@ class Request
         return $this->params['routeParam'][$position] ?? null;
     }
 
-    public function validate(array $rules): void
-    {
-    }
-
     public function allInputs()
     {
         return $this->params['bodyParam'] ?? [];

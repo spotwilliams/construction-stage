@@ -31,7 +31,7 @@ class Router
                 array_shift($matches);
                 $params['routeParam'] = $matches;
                 if (in_array($httpVerb, ['post', 'patch'])) {
-                    $data = json_decode(file_get_contents('php://input'));
+                    $data = json_decode(file_get_contents('php://input'), true);
                     $params['bodyParam'] = $data;
                 }
 

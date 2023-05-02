@@ -7,13 +7,13 @@ namespace ConstructionStages\Validation\Rules;
 use ConstructionStages\Validation\ValidationFailed;
 use ConstructionStages\Validation\ValidationRule;
 
-class In implements ValidationRule
+class StringLength implements ValidationRule
 {
     public function apply(string $ruleName, string $field, mixed $value = null, $constraint = null): bool
     {
-        if (in_array($value, $constraint)) return true;
-
-        throw new ValidationFailed("The value for field `{$field}`is not in the required list: " . implode(',', $constraint));
+        if (strlen($value) <= (int)$constraint) {
+            return true;
+        }
+        throw new ValidationFailed("The value for field `{$field}` has a length greater than {$constraint}.");
     }
-
 }

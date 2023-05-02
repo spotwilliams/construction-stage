@@ -5,5 +5,5 @@ namespace ConstructionStages\Validation;
 interface ValidationRule
 {
     /** @throws ValidationFailed */
-    public function apply(string $ruleName, array|string $constraints, string $field, mixed $value): bool;
+    public function apply(string $ruleName, string $field, mixed $value = null, $constraint = null): bool;
 }
