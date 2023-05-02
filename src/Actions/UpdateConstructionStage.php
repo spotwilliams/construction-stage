@@ -6,6 +6,7 @@ namespace ConstructionStages\Actions;
 
 use ConstructionStages\DataTransfers\ConstructionStagesUpdate;
 use ConstructionStages\Enums\ConstructionStageStatus;
+use ConstructionStages\Enums\DurationUnit;
 use ConstructionStages\Http\ActionContract;
 use ConstructionStages\Http\Request;
 use ConstructionStages\Http\Response;
@@ -19,10 +20,17 @@ class UpdateConstructionStage implements ActionContract
 
     public function execute(Request $request): Response
     {
+        $rules = [
+            'name' => ['nullable', 'string_length' => 255],
+            'startDate' => ['nullable', 'datetime_iso'],
+            'endDate' => ['nullable', 'datetime_iso', 'later_than_datetime_iso' => $request->get('startDate')],
+            'durationUnit' => ['nullable', 'in' => DurationUnit::toArray()],
+            'color' => ['nullable', 'hex_color'],
+            'externalId' => ['nullable', 'string_length' => 255],
+            'status' => ['nullable', 'in' => ConstructionStageStatus::toArray()],
+        ];
         try {
-            $request->validate([
-                'status' => ['in' => ConstructionStageStatus::toArray()]
-            ]);
+            $request->validate($rules);
 
             $model = $this->repository->getSingle(
                 id: (int)$request->getRouteParam(0),
