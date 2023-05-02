@@ -11,7 +11,7 @@ use ConstructionStages\Http\Response;
 
 class CreateConstructionStage implements ActionContract
 {
-    use RequiresRepository;
+    use RequiresRepositoryAndValidation;
 
     public function execute(Request $request): Response
     {

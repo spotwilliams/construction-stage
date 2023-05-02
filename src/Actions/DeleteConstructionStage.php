@@ -10,7 +10,7 @@ use ConstructionStages\Http\Response;
 
 class DeleteConstructionStage implements ActionContract
 {
-    use RequiresRepository;
+    use RequiresRepositoryAndValidation;
 
     public function execute(Request $request): Response
     {

@@ -5,31 +5,42 @@ declare(strict_types=1);
 namespace ConstructionStages\Actions;
 
 use ConstructionStages\DataTransfers\ConstructionStagesUpdate;
+use ConstructionStages\Enums\ConstructionStageStatus;
 use ConstructionStages\Http\ActionContract;
 use ConstructionStages\Http\Request;
 use ConstructionStages\Http\Response;
 use ConstructionStages\Repositories\ModelNotFound;
+use ConstructionStages\Validation\ValidationFailed;
 
 class UpdateConstructionStage implements ActionContract
 {
-    use RequiresRepository;
+    use RequiresRepositoryAndValidation;
+    use RequireReturnsResponses;
 
     public function execute(Request $request): Response
     {
         try {
+            $this->validator->validate(
+                values: (array)$request->allInputs(),
+                rules: ['status' => ['in' => ConstructionStageStatus::toArray()]],
+            );
+
+            $model = $this->repository->getSingle(
+                id: (int)$request->getRouteParam(0),
+                throwNotFound: true
+            );
 
             $constructionStage = $this->repository->update(
-                model: $this->repository->getSingle(
-                    id: (int)$request->getRouteParam(0),
-                    throwNotFound: true
-                ),
+                model: $model,
                 data: new ConstructionStagesUpdate($request)
             );
 
-            return new Response([$constructionStage]);
+            return $this->response([$constructionStage], 200);
 
         } catch (ModelNotFound $e) {
             return new Response(['error' => 'construction stage not found']);
+        } catch (ValidationFailed $e) {
+            return $this->response(['error' => $e->getMessage()], 422);
         }
     }
 }
