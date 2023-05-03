@@ -10,14 +10,20 @@ use ConstructionStages\Enums\DurationUnit;
 use ConstructionStages\Http\ActionContract;
 use ConstructionStages\Http\Request;
 use ConstructionStages\Http\RequireReturnsResponses;
-use ConstructionStages\Http\RequiresRepository;
 use ConstructionStages\Http\Response;
+use ConstructionStages\Services\CreateConstructionStageService;
 use ConstructionStages\Validation\ValidationFailed;
 
 class CreateConstructionStage implements ActionContract
 {
-    use RequiresRepository;
     use RequireReturnsResponses;
+
+    private CreateConstructionStageService $service;
+
+    public function __construct()
+    {
+        $this->service = new CreateConstructionStageService();
+    }
 
     public function execute(Request $request): Response
     {
@@ -35,9 +41,8 @@ class CreateConstructionStage implements ActionContract
         try {
             $request->validate($rules);
 
-            $model = $this->repository->store(
-                new ConstructionStagesCreate($request)
-            );
+            $model = $this->service->execute(new ConstructionStagesCreate($request));
+
             return $this->response($model->toArray(), 200);
         } catch (ValidationFailed $e) {
             return $this->response(['error' => $e->getMessage()], 422);

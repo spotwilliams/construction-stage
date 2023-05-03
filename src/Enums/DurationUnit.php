@@ -19,4 +19,13 @@ enum DurationUnit
 
         return $array;
     }
+
+    public static function createFrom($durationUnit)
+    {
+        return match ($durationUnit) {
+            'HOURS' => DurationUnit::HOURS,
+            'DAYS' => DurationUnit::DAYS,
+            'WEEKS' => DurationUnit::WEEKS,
+        };
+    }
 }

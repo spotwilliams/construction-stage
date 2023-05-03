@@ -2,8 +2,8 @@ create table if not exists construction_stages
 (
     ID           integer primary key,
     name         varchar(255)              not null,
-    start_date   datetime                  not null,
-    end_date     datetime,
+    startDate   datetime                  not null,
+    endDate     datetime,
     duration     float,
     durationUnit varchar(50),
     color        varchar(50),

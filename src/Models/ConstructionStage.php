@@ -10,10 +10,10 @@ class ConstructionStage extends Model
 
     public $attributes = [
         'name',
-        'start_date',
+        'startDate',
         'color',
         'name',
-        'end_date',
+        'endDate',
         'duration',
         'durationUnit',
         'color',

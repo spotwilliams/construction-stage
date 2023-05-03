@@ -18,8 +18,8 @@ class ConstructionStageRepository extends RepositoryOrm
 			SELECT
 				ID as id,
 				name, 
-				strftime('%Y-%m-%dT%H:%M:%SZ', start_date) as startDate,
-				strftime('%Y-%m-%dT%H:%M:%SZ', end_date) as endDate,
+				strftime('%Y-%m-%dT%H:%M:%SZ', startDate) as startDate,
+				strftime('%Y-%m-%dT%H:%M:%SZ', endDate) as endDate,
 				duration,
 				durationUnit,
 				color,
@@ -43,8 +43,8 @@ class ConstructionStageRepository extends RepositoryOrm
     {
         $model = new ConstructionStage([
             'name' => $data->name,
-            'start_date' => $data->startDate,
-            'end_date' => $data->endDate,
+            'startDate' => $data->startDate,
+            'endDate' => $data->endDate,
             'duration' => $data->duration,
             'durationUnit' => $data->durationUnit,
             'color' => $data->color,
@@ -62,8 +62,8 @@ class ConstructionStageRepository extends RepositoryOrm
 			SELECT
 				ID as id,
 				name, 
-				strftime('%Y-%m-%dT%H:%M:%SZ', start_date) as startDate,
-				strftime('%Y-%m-%dT%H:%M:%SZ', end_date) as endDate,
+				strftime('%Y-%m-%dT%H:%M:%SZ', startDate) as startDate,
+				strftime('%Y-%m-%dT%H:%M:%SZ', endDate) as endDate,
 				duration,
 				durationUnit,
 				color,
