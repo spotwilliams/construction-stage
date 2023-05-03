@@ -18,7 +18,16 @@ class Validator
         'string_length' => Rules\StringLength::class,
     ];
 
-    /** @throws ValidationFailed */
+    /**
+     * Validates the given values using the specified rules.
+     *
+     * @param array $values The values to validate.
+     * @param array $rules An array of validation rules to apply to the values.
+     * Each rule is an associative array with a rule name as the key and a constraint or constraint name as the value.
+     * If the value is a constraint, it is used as a parameter to the rule.
+     * @throws ValidationFailed If validation fails.
+     * @return bool True if validation passes.
+     */
     public function validate(array $values, array $rules): bool
     {
         foreach ($rules as $inputName => $constraints) {
@@ -42,6 +51,13 @@ class Validator
         return true;
     }
 
+    /**
+     * Finds and returns the validation rule with the specified name.
+     *
+     * @param string $name The name of the rule to find.
+     * @throws \Exception If the rule is not found.
+     * @return ValidationRule The found validation rule.
+     */
     private function findRule(string $name): ValidationRule
     {
         if (isset($this->rules[$name])) {

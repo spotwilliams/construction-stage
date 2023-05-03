@@ -9,6 +9,7 @@ use ConstructionStages\Validation\ValidationRule;
 
 class In implements ValidationRule
 {
+    /** @inheritDoc */
     public function apply(string $ruleName, string $field, mixed $value = null, $constraint = null): bool
     {
         if (in_array($value, $constraint)) return true;

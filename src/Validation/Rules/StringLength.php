@@ -9,6 +9,7 @@ use ConstructionStages\Validation\ValidationRule;
 
 class StringLength implements ValidationRule
 {
+    /** @inheritDoc */
     public function apply(string $ruleName, string $field, mixed $value = null, $constraint = null): bool
     {
         if (strlen($value) <= (int)$constraint) {

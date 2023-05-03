@@ -12,6 +12,7 @@ use ConstructionStages\Models\Model;
 
 class ConstructionStageRepository extends RepositoryOrm
 {
+    /** @inheritDoc */
     public function getAll(): array
     {
         return $this->querySelect("
@@ -29,16 +30,19 @@ class ConstructionStageRepository extends RepositoryOrm
 		");
     }
 
+    /** @inheritDoc */
     public function update(Model $model, ConstructionStagesUpdate $data): Model
     {
         return $this->updateByModel($model, $data->toArray());
     }
 
+    /** @inheritDoc */
     public function getModelClass(): string
     {
         return ConstructionStage::class;
     }
 
+    /** @inheritDoc */
     public function store(ConstructionStagesCreate $data): Model
     {
         $model = new ConstructionStage([
@@ -55,6 +59,7 @@ class ConstructionStageRepository extends RepositoryOrm
         return $this->saveModel($model);
     }
 
+    /** @inheritDoc */
     public function getSingle(int $id, bool $throwNotFound = false): ?Model
     {
         $result = current(
@@ -78,6 +83,7 @@ class ConstructionStageRepository extends RepositoryOrm
         return $result;
     }
 
+    /** @inheritDoc */
     public function delete(Model $model): Model
     {
         return $this->updateByModel($model, ['status' => ConstructionStageStatus::DELETED->name]);

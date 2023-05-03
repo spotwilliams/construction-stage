@@ -9,6 +9,7 @@ use ConstructionStages\Validation\ValidationRule;
 
 class HexColor implements ValidationRule
 {
+    /** @inheritDoc */
     public function apply(string $ruleName, string $field, mixed $value = null, $constraint = null): bool
     {
         if (preg_match('/^#[0-9A-Fa-f]{6}$/', $value)) {

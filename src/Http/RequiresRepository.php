@@ -10,6 +10,9 @@ trait RequiresRepository
 {
     private ConstructionStageRepository $repository;
 
+    /**
+     * Initializes the repository instance.
+     */
     public function __construct()
     {
         $this->repository = new ConstructionStageRepository();

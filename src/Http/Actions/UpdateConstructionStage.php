@@ -21,6 +21,7 @@ class UpdateConstructionStage implements ActionContract
     use RequiresRepository;
     use RequireReturnsResponses;
 
+    /** @inheritDoc */
     public function execute(Request $request): Response
     {
 

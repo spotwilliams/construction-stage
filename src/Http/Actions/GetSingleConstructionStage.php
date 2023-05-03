@@ -13,6 +13,7 @@ class GetSingleConstructionStage implements ActionContract
 {
     use RequiresRepository;
 
+    /** @inheritDoc */
     public function execute(Request $request): Response
     {
         return new Response(

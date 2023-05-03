@@ -13,6 +13,7 @@ class DeleteConstructionStage implements ActionContract
 {
     use RequiresRepository;
 
+    /** @inheritDoc */
     public function execute(Request $request): Response
     {
         $model = $this->repository->getSingle((int) $request->getRouteParam(0));

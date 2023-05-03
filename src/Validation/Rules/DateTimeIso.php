@@ -9,6 +9,7 @@ use ConstructionStages\Validation\ValidationRule;
 
 class DateTimeIso implements ValidationRule
 {
+    /** @inheritDoc */
     public function apply(string $ruleName, string $field, mixed $value = null, $constraint = null): bool
     {
         $format = 'Y-m-d\TH:i:s\Z';

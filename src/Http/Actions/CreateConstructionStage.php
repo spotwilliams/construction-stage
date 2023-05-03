@@ -25,6 +25,7 @@ class CreateConstructionStage implements ActionContract
         $this->service = new CreateConstructionStageService();
     }
 
+    /** @inheritDoc */
     public function execute(Request $request): Response
     {
         $rules = [
