@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ConstructionStages\Actions;
-
-use ConstructionStages\Http\Response;
+namespace ConstructionStages\Http;
 
 trait RequireReturnsResponses
 {

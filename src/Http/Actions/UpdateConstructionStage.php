@@ -2,13 +2,15 @@
 
 declare(strict_types=1);
 
-namespace ConstructionStages\Actions;
+namespace ConstructionStages\Http\Actions;
 
 use ConstructionStages\DataTransfers\ConstructionStagesUpdate;
 use ConstructionStages\Enums\ConstructionStageStatus;
 use ConstructionStages\Enums\DurationUnit;
 use ConstructionStages\Http\ActionContract;
 use ConstructionStages\Http\Request;
+use ConstructionStages\Http\RequireReturnsResponses;
+use ConstructionStages\Http\RequiresRepository;
 use ConstructionStages\Http\Response;
 use ConstructionStages\Repositories\ModelNotFound;
 use ConstructionStages\Validation\ValidationFailed;

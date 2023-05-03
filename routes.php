@@ -1,6 +1,6 @@
 <?php
 
-use ConstructionStages\Actions;
+use ConstructionStages\Http\Actions;
 use ConstructionStages\Http\Router;
 
 Router::add(method: 'get', route: 'constructionStages', action: Actions\GetAllConstructionStages::class);

@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace ConstructionStages\Actions;
+namespace ConstructionStages\Http\Actions;
 
 use ConstructionStages\Http\ActionContract;
 use ConstructionStages\Http\Request;
+use ConstructionStages\Http\RequiresRepository;
 use ConstructionStages\Http\Response;
 
 class GetAllConstructionStages implements ActionContract

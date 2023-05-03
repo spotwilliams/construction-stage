@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ConstructionStages\Actions;
+namespace ConstructionStages\Http;
 
 use ConstructionStages\Repositories\ConstructionStageRepository;
 
